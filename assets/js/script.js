@@ -105,7 +105,15 @@ var taskButtonHandler = function(event){
     if(event.target.matches(".delete-btn")){
         //het the element's task id
         var taskId = event.target.getAttribute("data-task-id");
-        console.log(taskId);
+        deleteTask(taskId);
     }
 };
+
+var deleteTask = function(taskId){ //figure out where this function is supposed to be placed and see if the console.log works
+    var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
+    //console.log(taskSelected); was used to check the item we removed before adding the fuction execution of deleting the task 
+    taskSelected.remove();
+
+};
+
 pageContentEl.addEventListener("click", taskButtonHandler);
