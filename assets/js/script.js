@@ -6,6 +6,14 @@ var pageContentEl = document.querySelector("#page-content");
 var tasksInprogressEl = document.querySelector("#tasks-in-progress");
 var tasksCompletedEl = document.querySelector("#tasks-completed");
 
+var tasks = [];
+
+
+
+
+
+
+
 var taskFormHandler = function (event) {
     event.preventDefault();
 
@@ -30,7 +38,8 @@ var taskFormHandler = function (event) {
     else{
         var taskDataObj = {
             name: taskNameInput,
-            type: taskTypeInput
+            type: taskTypeInput,
+            status: "to-do"
         };
     
       createTaskEl(taskDataObj);
@@ -108,6 +117,9 @@ var createTaskEl = function(taskDataObj){
 
     listItemEl.appendChild(taskInfoEl);
 
+    taskDataObj.id = taskIdCounter;
+    tasks.push(taskDataObj);
+
     var taskActionsEl = createTaskActions(taskIdCounter);
     
     listItemEl.appendChild(taskActionsEl); 
@@ -117,6 +129,9 @@ var createTaskEl = function(taskDataObj){
 
     //increase task counter for next unique id
     taskIdCounter++;
+
+    // console.log(taskDataObj); just to check if this code was using the array correctly
+    // console.log(taskDataObj.status);
 }
 
 formEl.addEventListener("submit", taskFormHandler);
