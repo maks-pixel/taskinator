@@ -3,7 +3,7 @@ var taskIdCounter = 0;
 var formEl =  document.querySelector("#task-form");
 var tasksToDoEl = document.querySelector("#tasks-to-do");
 var pageContentEl = document.querySelector("#page-content");
-var tasksInprogressEl = ducument.querySelector("#tasks-in-progress");
+var tasksInprogressEl = document.querySelector("#tasks-in-progress");
 var tasksCompletedEl = document.querySelector("#tasks-completed");
 
 var taskFormHandler = function (event) {
@@ -169,13 +169,13 @@ var taskStatusChangeHandler = function(event){
     var statusValue = event.target.value.toLowerCase();
 
     //find the parent task itemElement based on the id
-    var taskSelected = document.querySelector(".task-item[data-task-id'" + taskId + "']");
+    var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
 
     if (statusValue === "to-do") {
         tasksToDoEl.appendChild(taskSelected);
     }
     else if (statusValue === "in progress") {
-        tasksInProgressEl.appendChild(taskSelected);
+        tasksInprogressEl.appendChild(taskSelected);
     }
     else if (statusValue === "completed") {
         tasksCompletedEl.appendChild(taskSelected);
