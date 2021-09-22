@@ -108,6 +108,9 @@ var completeEditTask = function(taskName, taskType, taskId) {
 
     formEl.removeAttribute("data-task-id");
     document.querySelector("#save-task").textContent="Add Task"
+
+    // save tasks to localStorage
+    saveTasks();
 };
 
 var createTaskEl = function(taskDataObj){
@@ -127,6 +130,9 @@ var createTaskEl = function(taskDataObj){
 
     taskDataObj.id = taskIdCounter;
     tasks.push(taskDataObj);
+
+    // save tasks to localStorage
+    saveTasks();
 
     var taskActionsEl = createTaskActions(taskIdCounter);
     
@@ -193,6 +199,9 @@ var deleteTask = function(taskId){ //figure out where this function is supposed 
     }
     //reassign tasks array to be the same as updatedTaskArr
     tasks = updatedTaskArr;
+
+    // save tasks to localStorage
+    saveTasks();
 };
 
 var taskStatusChangeHandler = function(event){
@@ -220,7 +229,31 @@ var taskStatusChangeHandler = function(event){
             tasks[i].status = statusValue;
         }
     }
+
+    // save tasks to localStorage
+    saveTasks();
 };
+
+var saveTasks = function() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+var loadTasks = function(){
+    //getting task items from the local storage
+    var savedTasks = localStorage.getItem("tasks");
+    if (!savedTasks) {
+        return false;
+      }console.log("Saved tasks found!");
+      // else, load up saved tasks
+    
+      // parse into array of objects
+      savedTasks = JSON.parse(savedTasks);
+    
+      // loop through savedTasks array
+      for (var i = 0; i < savedTasks.length; i++) {
+        // pass each task object into the `createTaskEl()` function
+        createTaskEl(savedTasks[i]);
+      }
+}
 
 pageContentEl.addEventListener("click", taskButtonHandler); // looking for the clock of a button on the task
 
